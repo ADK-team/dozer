@@ -1,0 +1,62 @@
+name: Create Release
+
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - id: get_version
+        uses: battila7/get-version-action@v2
+      - name: Build project # This would actually build your project, using zip for an example artifact
+        run: |
+          zip --junk-paths x86_64-apple-darwin README.md ./x86_64-apple-darwin/dozer
+          zip --junk-paths x86_64-pc-windows-msvc README.md ./x86_64-pc-windows-msvc/dozer
+          zip --junk-paths x86_64-unknown-linux-gnu README.md ./x86_64-unknown-linux-gnu/dozer
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset for Darwin
+        id: upload-release-asset-osx
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./x86_64-apple-darwin.zip
+          asset_name: dozer-${{steps.get_version.outputs.version}}-x86_64-apple-darwin.zip
+          asset_content_type: application/zip
+      - name: Upload Release Asset for Windows
+        id: upload-release-asset-win
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./x86_64-pc-windows-msvc.zip
+          asset_name: dozer-${{steps.get_version.outputs.version}}-x86_64-pc-windows-msvc.zip
+          asset_content_type: application/zip
+      - name: Upload Release Asset for Linux
+        id: upload-release-asset-linux
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./x86_64-unknown-linux-gnu.zip
+          asset_name: dozer-${{steps.get_version.outputs.version}}-x86_64-unknown-linux-gnu.zip
+          asset_content_type: application/zip
