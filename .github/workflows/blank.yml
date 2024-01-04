@@ -18,7 +18,7 @@ jobs:
       - name: Build project # This would actually build your project, using zip for an example artifact
         run: |
           zip --junk-paths x86_64-apple-darwin README.md ./x86_64-apple-darwin/dozer
-          zip --junk-paths x86_64-pc-windows-msvc README.md ./x86_64-pc-windows-msvc/dozer
+          zip --junk-paths x86_64-pc-windows-msvc README.md ./x86_64-pc-windows-msvc/dozer.exe
           zip --junk-paths x86_64-unknown-linux-gnu README.md ./x86_64-unknown-linux-gnu/dozer
       - name: Create Release
         id: create_release
