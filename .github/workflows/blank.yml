@@ -48,7 +48,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./installers/Dozer-macOS10.0-Intel-x86_64.dmg
-          asset_name: Dozer-${{steps.get_version.outputs.version}}-macOS10.0-Intel-x86_64.dmg
+          asset_name: Dozer-macOS10.0-Intel-x86_64.dmg
           asset_content_type: application/zip
       - name: Upload Release Asset for Darwin13Up Installer
         id: upload-release-asset-installer-osx13up
@@ -58,7 +58,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./installers/Dozer-macOS13.0-Intel-x86_64.dmg
-          asset_name: Dozer-${{steps.get_version.outputs.version}}-macOS13.0-Intel-x86_64.dmg
+          asset_name: Dozer-macOS13.0-Intel-x86_64.dmg
           asset_content_type: application/zip
       - name: Upload Release Asset for Darwin14Up Installer
         id: upload-release-asset-installer-osx14up
@@ -68,7 +68,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./installers/Dozer-macOS14.0-Intel-x86_64.dmg
-          asset_name: Dozer-${{steps.get_version.outputs.version}}-macOS14.0-Intel-x86_64.dmg
+          asset_name: Dozer-macOS14.0-Intel-x86_64.dmg
           asset_content_type: application/zip
       - name: Upload Release Asset for Windows
         id: upload-release-asset-win
@@ -88,7 +88,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./installers/Dozer-x86_64.msi
-          asset_name: Dozer-${{steps.get_version.outputs.version}}-x86_64-pc-windows.msi
+          asset_name: Dozer-x86_64-pc-windows.msi
           asset_content_type: application/zip
       - name: Upload Release Asset for Linux
         id: upload-release-asset-linux
@@ -108,7 +108,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./installers/Dozer-x86_64.deb
-          asset_name: Dozer-${{steps.get_version.outputs.version}}-x86_64-unknown-linux-gnu.deb
+          asset_name: Dozer-x86_64-unknown-linux-gnu.deb
           asset_content_type: application/zip
       - name: Upload Release Asset for Linux Installer RPM
         id: upload-release-asset-linux-installer-rpm
@@ -118,5 +118,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./installers/Dozer-x86_64.rpm
-          asset_name: Dozer-${{steps.get_version.outputs.version}}-x86_64-unknown-linux-gnu.rpm
+          asset_name: Dozer-x86_64-unknown-linux-gnu.rpm
           asset_content_type: application/zip
