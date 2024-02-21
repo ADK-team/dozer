@@ -40,6 +40,33 @@ jobs:
           asset_path: ./x86_64-apple-darwin.zip
           asset_name: dozer-${{steps.get_version.outputs.version}}-x86_64-apple-darwin.zip
           asset_content_type: application/zip
+      - name: Upload Release Asset for Darwin10Up Installer
+        id: upload-release-asset-installer-osx10up
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./installers/Dozer-${{steps.get_version.outputs.version}}-macOS10.0-Intel-x86-64.dmg
+          asset_name: Dozer-${{steps.get_version.outputs.version}}-macOS10.0-Intel-x86-64.dmg
+      - name: Upload Release Asset for Darwin13Up Installer
+        id: upload-release-asset-installer-osx13up
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./installers/Dozer-${{steps.get_version.outputs.version}}-macOS13.0-Intel-x86-64.dmg
+          asset_name: Dozer-${{steps.get_version.outputs.version}}-macOS13.0-Intel-x86-64.dmg
+      - name: Upload Release Asset for Darwin14Up Installer
+        id: upload-release-asset-installer-osx14up
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./installers/Dozer-${{steps.get_version.outputs.version}}-macOS14.0-Intel-x86-64.dmg
+          asset_name: Dozer-${{steps.get_version.outputs.version}}-macOS14.0-Intel-x86-64.dmg
       - name: Upload Release Asset for Windows
         id: upload-release-asset-win
         uses: actions/upload-release-asset@v1
@@ -50,6 +77,15 @@ jobs:
           asset_path: ./x86_64-pc-windows-msvc.zip
           asset_name: dozer-${{steps.get_version.outputs.version}}-x86_64-pc-windows-msvc.zip
           asset_content_type: application/zip
+      - name: Upload Release Asset for Windows Installer
+        id: upload-release-asset-win-installer
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./installer/Dozer-${{steps.get_version.outputs.version}}-x86_64.msi
+          asset_name: Dozer-${{steps.get_version.outputs.version}}-x86_64-pc-windows.msi
       - name: Upload Release Asset for Linux
         id: upload-release-asset-linux
         uses: actions/upload-release-asset@v1
@@ -60,3 +96,21 @@ jobs:
           asset_path: ./x86_64-unknown-linux-gnu.zip
           asset_name: dozer-${{steps.get_version.outputs.version}}-x86_64-unknown-linux-gnu.zip
           asset_content_type: application/zip
+      - name: Upload Release Asset for Linux Installer Debian
+        id: upload-release-asset-linux-installer-deb
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./installers/Dozer-${{steps.get_version.outputs.version}}-x86_64.deb
+          asset_name: Dozer-${{steps.get_version.outputs.version}}-x86_64-unknown-linux-gnu.deb
+      - name: Upload Release Asset for Linux Installer RPM
+        id: upload-release-asset-linux-installer-rpm
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./installers/Dozer-${{steps.get_version.outputs.version}}-x86_64.rpm
+          asset_name: Dozer-${{steps.get_version.outputs.version}}-x86_64-unknown-linux-gnu.rpm
