@@ -47,8 +47,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./installers/Dozer-macOS10.0-Intel-x86-64.dmg
-          asset_name: Dozer-${{steps.get_version.outputs.version}}-macOS10.0-Intel-x86-64.dmg
+          asset_path: ./installers/Dozer-macOS10.0-Intel-x86_64.dmg
+          asset_name: Dozer-${{steps.get_version.outputs.version}}-macOS10.0-Intel-x86_64.dmg
           asset_content_type: application/zip
       - name: Upload Release Asset for Darwin13Up Installer
         id: upload-release-asset-installer-osx13up
@@ -57,8 +57,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./installers/Dozer-macOS13.0-Intel-x86-64.dmg
-          asset_name: Dozer-${{steps.get_version.outputs.version}}-macOS13.0-Intel-x86-64.dmg
+          asset_path: ./installers/Dozer-macOS13.0-Intel-x86_64.dmg
+          asset_name: Dozer-${{steps.get_version.outputs.version}}-macOS13.0-Intel-x86_64.dmg
           asset_content_type: application/zip
       - name: Upload Release Asset for Darwin14Up Installer
         id: upload-release-asset-installer-osx14up
@@ -67,8 +67,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./installers/Dozer-macOS14.0-Intel-x86-64.dmg
-          asset_name: Dozer-${{steps.get_version.outputs.version}}-macOS14.0-Intel-x86-64.dmg
+          asset_path: ./installers/Dozer-macOS14.0-Intel-x86_64.dmg
+          asset_name: Dozer-${{steps.get_version.outputs.version}}-macOS14.0-Intel-x86_64.dmg
           asset_content_type: application/zip
       - name: Upload Release Asset for Windows
         id: upload-release-asset-win
