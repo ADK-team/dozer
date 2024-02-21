@@ -87,7 +87,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./installer/Dozer-x86_64.msi
+          asset_path: ./installers/Dozer-x86_64.msi
           asset_name: Dozer-${{steps.get_version.outputs.version}}-x86_64-pc-windows.msi
           asset_content_type: application/zip
       - name: Upload Release Asset for Linux
