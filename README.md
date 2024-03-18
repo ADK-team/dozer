@@ -1,4 +1,4 @@
-Copyright © 2023 ADKTeam. All rights reserved.
+Copyright © 2023-2024 ADKTeam. All rights reserved.
 
 The content, design, and graphics on this website are protected by copyright law and other intellectual property rights.
 Any unauthorized use, reproduction, or distribution of the materials on this site is strictly prohibited.
