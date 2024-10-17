@@ -120,3 +120,13 @@ jobs:
           asset_path: ./installers/Dozer-x86_64.rpm
           asset_name: Dozer-x86_64-unknown-linux-gnu.rpm
           asset_content_type: application/zip
+      - name: Upload Release Asset for Android Installer APK
+        id: upload-release-asset-android-installer-apk
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./installers/Dozer-android.apk
+          asset_name: Dozer-android.apk
+          asset_content_type: application/zip
