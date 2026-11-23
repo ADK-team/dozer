@@ -12,14 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - id: get_version
         uses: battila7/get-version-action@v2
-      - name: Build project # This would actually build your project, using zip for an example artifact
-        run: |
-          zip --junk-paths x86_64-apple-darwin README.md ./x86_64-apple-darwin/dozer
-          zip --junk-paths x86_64-pc-windows-msvc README.md ./x86_64-pc-windows-msvc/dozer.exe
-          zip --junk-paths x86_64-unknown-linux-gnu README.md ./x86_64-unknown-linux-gnu/dozer
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -30,113 +26,15 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
-      - name: Upload Release Asset for Darwin
-        id: upload-release-asset-osx
-        uses: actions/upload-release-asset@v1
+
+      - name: Upload Release Assets
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./x86_64-apple-darwin.zip
-          asset_name: dozer-${{steps.get_version.outputs.version}}-x86_64-apple-darwin.zip
-          asset_content_type: application/zip
-      - name: Upload Release Asset for Darwin10Up Installer
-        id: upload-release-asset-installer-osx10up
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./installers/Dozer-macOS10.0-Intel-x86_64.dmg
-          asset_name: Dozer-macOS10.0-Intel-x86_64.dmg
-          asset_content_type: application/zip
-      - name: Upload Release Asset for Darwin13Up Installer
-        id: upload-release-asset-installer-osx13up
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./installers/Dozer-macOS13.0-Intel-x86_64.dmg
-          asset_name: Dozer-macOS13.0-Intel-x86_64.dmg
-          asset_content_type: application/zip
-      - name: Upload Release Asset for Darwin14Up Installer
-        id: upload-release-asset-installer-osx14up
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./installers/Dozer-macOS14.0-Intel-x86_64.dmg
-          asset_name: Dozer-macOS14.0-Intel-x86_64.dmg
-          asset_content_type: application/zip
-      - name: Upload Release Asset for Windows
-        id: upload-release-asset-win
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./x86_64-pc-windows-msvc.zip
-          asset_name: dozer-${{steps.get_version.outputs.version}}-x86_64-pc-windows-msvc.zip
-          asset_content_type: application/zip
-      - name: Upload Release Asset for Windows Installer
-        id: upload-release-asset-win-installer
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./installers/Dozer-x86_64.msi
-          asset_name: Dozer-x86_64-pc-windows.msi
-          asset_content_type: application/zip
-      - name: Upload Release Asset for Linux
-        id: upload-release-asset-linux
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./x86_64-unknown-linux-gnu.zip
-          asset_name: dozer-${{steps.get_version.outputs.version}}-x86_64-unknown-linux-gnu.zip
-          asset_content_type: application/zip
-      - name: Upload Release Asset for Linux Installer Debian
-        id: upload-release-asset-linux-installer-deb
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./installers/Dozer-x86_64.deb
-          asset_name: Dozer-x86_64-unknown-linux-gnu.deb
-          asset_content_type: application/zip
-      - name: Upload Release Asset for Linux Installer RPM
-        id: upload-release-asset-linux-installer-rpm
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./installers/Dozer-x86_64.rpm
-          asset_name: Dozer-x86_64-unknown-linux-gnu.rpm
-          asset_content_type: application/zip
-      - name: Upload Release Asset for Linux Installer AppImage
-        id: upload-release-asset-linux-installer-appimage
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./installers/Dozer-x86_64.AppImage
-          asset_name: Dozer-x86_64-unknown-linux.AppImage
-          asset_content_type: application/zip
-      - name: Upload Release Asset for Android Installer APK
-        id: upload-release-asset-android-installer-apk
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./installers/Dozer-android.apk
-          asset_name: Dozer-android.apk
-          asset_content_type: application/zip
+        run: |
+          gh release upload "${GITHUB_REF_NAME}" \
+            "installers/Dozer-universal.dmg" \
+            "installers/Dozer-x86_64.msi" \
+            "installers/Dozer-x86_64.deb" \
+            "installers/Dozer-x86_64.rpm" \
+            "installers/Dozer-x86_64.AppImage" \
+            "installers/Dozer-android.apk"
